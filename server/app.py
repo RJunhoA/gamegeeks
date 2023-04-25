@@ -4,7 +4,6 @@ from flask_restful import Resource
 from config import app, db, api
 from models import User
 
-session_user = []
 
 class Users(Resource):
     def get(self):
@@ -67,46 +66,34 @@ class Login(Resource):
 
         password = data['password']
         if not user:
-            return {'error': 'Must enter a valid username and password'}, 404
+            return {'error': 'Must enter a valid username and password'}, 401
 
-        
         elif user.authenticate(password):
             session['user_id'] = user.id
-            session_user.append(user.to_dict())
             return make_response(
                 user.to_dict(),
                 200
             )
-        return {'error': 'Must enter a valid username and password'}, 404
+        return {'error': 'Must enter a valid username and password'}, 401
 api.add_resource(Login, '/login')
 
 class Logout(Resource):
     def delete(self):
-        session.pop('user_id', None)
-        return session.get('user_id')
+        session.clear()
+        return {'message': '204: No Content'}, 204
         
 
 api.add_resource(Logout, '/logout')
 
-class CurrentSession(Resource):
+class CheckSession(Resource):
     def get(self):
-
-        user = session_user[0]
-        if not user:
-            return make_response(
-                {'error': 'User not found'},
-                404
-            )
-    
-        return make_response(
-            user,
-            200
-        )
-api.add_resource(CurrentSession, '/current-session')
-
-
-
-
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return user.to_dict()
+        else:
+            return {'message': '401: Not Authorized'}, 401
+        
+api.add_resource(CheckSession, '/check_session')
 
 
 if __name__ == '__main__':
