@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import Login from './Login';
 import Navbar from './Navbar';
 import Signup from './Signup';
 import GamersContainer from './GamersContainer';
 import FeedContainer from './FeedContainer';
+import MyAccount from './MyAccount';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -44,6 +45,7 @@ function App() {
                 <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={<FeedContainer posts={posts} />} />
+                <Route path='/account' element={user ? <MyAccount user={user} /> : <Navigate to='/login' />} />
             </Routes>
         </div>
     )

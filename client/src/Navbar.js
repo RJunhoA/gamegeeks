@@ -31,6 +31,11 @@ function Navbar({onLogout}) {
                 </NavLink>
             </li>
             <li>
+                <NavLink to="/account" >
+                    My Account
+                </NavLink>
+            </li>
+            <li>
                 <NavLink to="/signup" >
                     Signup
                 </NavLink>
