@@ -9,30 +9,30 @@ function Navbar({onLogout}) {
 
     return (
     <nav>
-      <ul>
-        <li>
-          <NavLink to="/" >
-            Home
-          </NavLink>
-        </li>
-        {/* <li>
-          <NavLink to="/projects" >
-            Projects
-          </NavLink>
-        </li> */}
-        {/* <li>
-          <NavLink to="/myaccount" >
-            Profile
-          </NavLink>
-        </li> */}
-        <li>
-          <NavLink to="/login" >
-            Login
-          </NavLink>
-        </li>
-        <li>
-            <button onClick={handleLogout}>Logout</button>
-        </li>
+        <ul>
+            <li>
+                <NavLink to="/" >
+                    Home
+                </NavLink>
+            </li>
+            {/* <li>
+                <NavLink to="/myaccount" >
+                    Profile
+                </NavLink>
+            </li> */}
+            <li>
+                <NavLink to="/login" >
+                    Login
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/signup" >
+                    Signup
+                </NavLink>
+            </li>
+            <li>
+                <button onClick={handleLogout}>Logout</button>
+            </li>
       </ul>
     </nav>
   );

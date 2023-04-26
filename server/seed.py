@@ -10,9 +10,9 @@ with app.app_context():
     Like.query.delete()
 
 
-    u1 = User(username='test', _password='1234')
-    u2 = User(username='test2', _password='1234')
-    u3 = User(username='test3', _password='1234')
+    u1 = User(username='test', _password='1234', image='')
+    u2 = User(username='test2', _password='1234', image='')
+    u3 = User(username='test3', _password='1234', image='')
 
     p1 = Post(content='Hi, there! This is 1 post!')
     p2 = Post(content='Hi, there! This is 2 post!')

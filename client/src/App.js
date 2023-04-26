@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {Routes, Route} from 'react-router-dom';
 import Login from './Login';
 import Navbar from './Navbar';
+import Signup from './Signup';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -20,6 +21,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<h2>Welcome, {user?.username}!</h2>} />
                 <Route path='/login' element={<Login onLogin={setUser} />} />
+                <Route path='/signup' element={<Signup />} />
             </Routes>
             
             

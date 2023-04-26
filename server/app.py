@@ -2,7 +2,7 @@ from flask import make_response, request, session
 from flask_restful import Resource
 
 from config import app, db, api
-from models import User
+from models import User, Post, Like
 
 
 class Users(Resource):
@@ -30,22 +30,24 @@ class UserById(Resource):
             )
 api.add_resource(UserById, '/users/<int:id>')
 
+class Posts(Resource):
+    def get(self):
+        posts = [p.to_dict() for p in Post.query.all()]
+        return make_response(
+            posts,
+            200
+        )
+
+api.add_resource(Posts, '/posts')
+
 
 class Signup(Resource):
     def post(self):
         data = request.get_json()
-        temp_user = User(
-            username = data['username'],
-            image = data['image'],
-            _password = data['password']
-        )
-        temp_user.password_hash = temp_user._password
-        new_password = temp_user._password
-
         new_user = User(
             username = data['username'],
             image = data['image'],
-            _password = new_password
+            _password = data['password']
         )
         db.session.add(new_user)
         db.session.commit()

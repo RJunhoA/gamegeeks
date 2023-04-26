@@ -8,7 +8,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-likes', )
+    serialize_rules = ('-likes', '-updated_at' )
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String)
@@ -44,7 +44,7 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
-    serialize_rules = ('-likes', )
+    serialize_rules = ('-likes', 'users')
 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String)
