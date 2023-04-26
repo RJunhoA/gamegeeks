@@ -15,11 +15,16 @@ function Navbar({onLogout}) {
                     Home
                 </NavLink>
             </li>
-            {/* <li>
-                <NavLink to="/myaccount" >
-                    Profile
+            <li>
+                <NavLink to="/gamers" >
+                    Gamers
                 </NavLink>
-            </li> */}
+            </li>
+            <li>
+                <NavLink to="/feed" >
+                    Feed
+                </NavLink>
+            </li>
             <li>
                 <NavLink to="/login" >
                     Login

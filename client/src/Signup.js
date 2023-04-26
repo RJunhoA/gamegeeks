@@ -1,30 +1,30 @@
 import { useState } from "react";
 
-function Signup() {
+function Signup({addGamerState}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [image, setImage] = useState("")
   
     const user = {
-      username: username,
-      password: password,
-      image: image
+        username: username,
+        password: password,
+        image: image
     }
     
     const handleSubmit = (e) => {
-      e.preventDefault()
-      fetch("/signup", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(user)
-      })
-      .then(r => {
-        if (r.ok){
-          r.json().then( console.log('success'))
-        } else {
-          console.log('failure')
-        }
-      })
+        e.preventDefault()
+        fetch("/signup", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(user)
+        })
+            .then(r => {
+                if (r.ok){
+                    r.json().then(addGamerState(user))
+                } else {
+                    console.log('failure')
+                }   
+            })
         e.target.reset()
     }
 
@@ -32,7 +32,7 @@ function Signup() {
     return(
         <div>
             <div>
-                Welcome to SmartPark!
+                Welcome to GameGeeks!
             </div>
             <div>
                 <div>

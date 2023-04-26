@@ -4,7 +4,6 @@ from flask_restful import Resource
 from config import app, db, api
 from models import User, Post, Like
 
-
 class Users(Resource):
     def get(self):
         users = [u.to_dict() for u in User.query.all()]
@@ -28,6 +27,7 @@ class UserById(Resource):
                 user.to_dict(),
                 200
             )
+        
 api.add_resource(UserById, '/users/<int:id>')
 
 class Posts(Resource):
@@ -40,7 +40,6 @@ class Posts(Resource):
 
 api.add_resource(Posts, '/posts')
 
-
 class Signup(Resource):
     def post(self):
         data = request.get_json()
@@ -51,14 +50,13 @@ class Signup(Resource):
         )
         db.session.add(new_user)
         db.session.commit()
-
         return make_response(
             {},
             200
         )
+    
 api.add_resource(Signup, '/signup')
         
-
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -77,6 +75,7 @@ class Login(Resource):
                 200
             )
         return {'error': 'Must enter a valid username and password'}, 401
+    
 api.add_resource(Login, '/login')
 
 class Logout(Resource):
@@ -84,7 +83,6 @@ class Logout(Resource):
         session.clear()
         return {'message': '204: No Content'}, 204
         
-
 api.add_resource(Logout, '/logout')
 
 class CheckSession(Resource):
@@ -96,7 +94,6 @@ class CheckSession(Resource):
             return {'message': '401: Not Authorized'}, 401
         
 api.add_resource(CheckSession, '/check_session')
-
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
