@@ -8,13 +8,17 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    serialize_rules = ('-likes', )
+
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String)
     _password = db.Column(db.String)
     image = db.Column(db.String)
-
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+
+    likes = db.relationship('Like', backref='user', cascade="all, delete-orphan")
+    posts = association_proxy('likes', 'post')
 
     @hybrid_property
     def password_hash(self):
@@ -36,3 +40,28 @@ class User(db.Model, SerializerMixin):
 
         password_hash = bcrypt.generate_password_hash(attr.encode('utf-8'))
         return password_hash.decode('utf-8')
+    
+class Post(db.Model, SerializerMixin):
+    __tablename__ = 'posts'
+
+    serialize_rules = ('-likes', )
+
+    id = db.Column(db.Integer, primary_key = True)
+    content = db.Column(db.String)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+
+    likes = db.relationship('Like', backref='post')
+    users = association_proxy('likes', 'user')
+
+
+class Like(db.Model, SerializerMixin):
+    __tablename__ = 'likes'
+
+    id = db.Column(db.Integer, primary_key = True)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+
+    user_id = db.Column(db.Integer, db.ForeignKey ('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey ('posts.id'))
+
