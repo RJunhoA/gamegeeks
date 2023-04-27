@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useContext } from 'react';
+import { UserContext } from './context/user';
 
-function Login({onLogin}) {
+
+function Login() {
+    const {setUser} = useContext(UserContext)
     const [username, setUsername] = useState("");
     const [password, setPassword] =useState("")
 
@@ -17,7 +21,7 @@ function Login({onLogin}) {
         }),
       })
         .then((r) => r.json())
-        .then((user) => onLogin(user));
+        .then((user) => setUser(user));
     }
   
     return (

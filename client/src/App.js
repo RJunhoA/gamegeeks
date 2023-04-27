@@ -6,19 +6,15 @@ import Signup from './Signup';
 import GamersContainer from './GamersContainer';
 import FeedContainer from './FeedContainer';
 import MyAccount from './MyAccount';
+import Profile from './Profile';
+import { useContext } from 'react';
+import { UserContext } from './context/user';
+
 
 function App() {
-    const [user, setUser] = useState(null);
+    const {user} = useContext(UserContext)
     const [gamers, setGamers] = useState([])
     const [posts, setPosts] = useState([])
-
-    useEffect(() => {
-        fetch("/check_session").then((response) => {
-            if (response.ok) {
-                response.json().then((user) => setUser(user));
-            }
-        });
-    }, []);
 
     useEffect(() => {
         fetch('/users')
@@ -38,14 +34,15 @@ function App() {
 
     return(
         <div>
-            <Navbar onLogout={setUser} />
+            <Navbar />
             <Routes>
-                <Route path='/' element={<h2>Welcome, {user?.username}!</h2>} />
-                <Route path='/login' element={<Login onLogin={setUser} />} />
-                <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />
+                <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
+                <Route path='/profile' element={user ? <Profile /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={<FeedContainer posts={posts} />} />
-                <Route path='/account' element={user ? <MyAccount user={user} /> : <Navigate to='/login' />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/account' element={user ? <MyAccount/> : <Navigate to='/login' />} />
+                <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />
             </Routes>
         </div>
     )

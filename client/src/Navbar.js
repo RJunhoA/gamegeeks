@@ -1,10 +1,15 @@
-import { NavLink } from 'react-router-dom'
+import { useContext } from 'react';
+import { UserContext } from './context/user';
+import { NavLink } from 'react-router-dom';
 
-function Navbar({onLogout}) {
+function Navbar() {
+
+    const {user, setUser} = useContext(UserContext)
+
     function handleLogout() {
         fetch("/logout", {
           method: "DELETE",
-        }).then(() => onLogout(null));
+        }).then(() => setUser(null));
     }
 
     return (
@@ -12,7 +17,12 @@ function Navbar({onLogout}) {
         <ul>
             <li>
                 <NavLink to="/" >
-                    Home
+                    GG
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/profile" >
+                    {user ? user.username : 'Profile'}
                 </NavLink>
             </li>
             <li>
