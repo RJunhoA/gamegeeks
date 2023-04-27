@@ -37,8 +37,36 @@ class Posts(Resource):
             posts,
             200
         )
+    
+    def post(self):
+        data = request.get_json()
+        new_post = Post(
+            content = data['content']
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return make_response(
+            {"id": new_post.id},
+            201
+        )
 
 api.add_resource(Posts, '/posts')
+
+class Likes(Resource):
+    def post(self):
+        data = request.get_json()
+        new_like = Like(
+            user_id = data['user_id'],
+            post_id = data['post_id']
+        )
+        db.session.add(new_like)
+        db.session.commit()
+        return make_response(
+            {},
+            200
+        )
+
+api.add_resource(Likes, '/likes')
 
 class Signup(Resource):
     def post(self):

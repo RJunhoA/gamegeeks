@@ -1,7 +1,7 @@
-function FeedCard({key, content, owner, image, likes}) {
+function FeedCard({id, content, owner, image, likes}) {
 
     return(
-        <div key={key}>
+        <div id={id}>
             <img src={image} alt="profile pic" />
             <h2>{owner}</h2>
             <p>{content}</p>

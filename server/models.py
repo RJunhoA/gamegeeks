@@ -48,7 +48,6 @@ class Post(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String)
-    number_of_likes = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
@@ -59,7 +58,7 @@ class Post(db.Model, SerializerMixin):
 class Like(db.Model, SerializerMixin):
     __tablename__ = 'likes'
 
-    serialize_rules = ('-updated_at', '-user', '-post')
+    serialize_rules = ('-updated_at', '-user.id', '-post.id')
 
     id = db.Column(db.Integer, primary_key = True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())

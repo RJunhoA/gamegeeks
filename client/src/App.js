@@ -32,12 +32,16 @@ function App() {
         setGamers([newGamerObj, ...gamers])
     }
 
+    const addPostState = (newPostObj) => {
+        setPosts([...posts, newPostObj])
+    }
+
     return(
         <div>
             <Navbar />
             <Routes>
                 <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
-                <Route path='/profile' element={user ? <Profile /> : <Navigate to='/login' />} />
+                <Route path='/profile' element={user ? <Profile posts={posts} addPostState={addPostState} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={<FeedContainer posts={posts} />} />
                 <Route path='/login' element={<Login />} />

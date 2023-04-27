@@ -5,6 +5,7 @@ function GamersContainer({gamers}) {
         return(
             <GamerCard 
                 key={g.id}
+                id={g.id}
                 username={g.username}
                 image={g.image}
                 created={g.created_at}

@@ -1,13 +1,13 @@
-import { useContext } from 'react';
-import { UserContext } from './context/user';
+// import { useContext } from 'react';
+// import { UserContext } from './context/user';
 
 
-function ProfilePost({key, content, date, likes}) {
-    const {user} = useContext(UserContext)
+function ProfilePost({content, date, likes, id}) {
+    // const {user} = useContext(UserContext)
 
 
     return(
-        <div key={key}>
+        <div id={id}>
             <p>{content}</p>
             <h6>{date}</h6>
         </div>
