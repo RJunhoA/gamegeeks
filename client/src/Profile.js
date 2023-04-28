@@ -5,7 +5,7 @@ import ProfilePost from './ProfilePost';
 
 
 
-function Profile({addPostState, handlePostDelete}) {
+function Profile({addPostState, handlePostDelete, handlePostPatch}) {
     const [content, setContent] = useState("");
     const {user, refreshUser} = useContext(UserContext);
 
@@ -18,6 +18,7 @@ function Profile({addPostState, handlePostDelete}) {
                 date={p.created_at}
                 likes={p.likes}
                 handlePostDelete={handlePostDelete}
+                handlePostPatch={handlePostPatch}
             />
         )
     });
