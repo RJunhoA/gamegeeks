@@ -4,6 +4,7 @@ import { UserContext } from './context/user';
 
 function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatch}) {
     const [formContent, setFormContent] = useState("")
+    const [visiblity, setVisibility] = useState(false)
     const {refreshUser} = useContext(UserContext)
 
     const handleDelete = () => {
@@ -31,12 +32,17 @@ function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatc
 
     }
 
+    const toggleVisbility = () => {
+        setVisibility(!visiblity)
+    }
+
     return(
         <div id={id}>
             <p>{content}</p>
             <h6>{date}</h6>
-            <button>Edit</button>
-            <form onSubmit={handleSubmit}>
+            <button onClick={toggleVisbility}>Edit</button>
+            {visiblity ? 
+                <form onSubmit={handleSubmit}>
                 <label>Edit Post!</label>
                 <textarea
                     rows='4'
@@ -45,10 +51,11 @@ function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatc
                     name='content'
                     onChange={(e) => setFormContent(e.target.value)}
                 />
-                <button>
-                    Submit
-                </button>
-            </form>
+                <button>Submit</button>
+                </form>
+                :
+                ""
+            }
             <button onClick={handleDelete}>Delete</button>
         </div>
     )
