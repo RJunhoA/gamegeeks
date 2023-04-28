@@ -36,12 +36,18 @@ function App() {
         setPosts([...posts, newPostObj])
     }
 
+    const handlePostDelete = (id) => {
+        setPosts(posts.filter(post => {
+            return post.id !== id
+        }))
+    }
+
     return(
         <div>
             <Navbar />
             <Routes>
                 <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
-                <Route path='/profile' element={user ? <Profile posts={posts} addPostState={addPostState} /> : <Navigate to='/login' />} />
+                <Route path='/profile' element={user ? <Profile posts={posts} addPostState={addPostState} handlePostDelete={handlePostDelete} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={<FeedContainer posts={posts} />} />
                 <Route path='/login' element={<Login />} />

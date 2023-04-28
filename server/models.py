@@ -51,7 +51,7 @@ class Post(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
-    likes = db.relationship('Like', backref='post')
+    likes = db.relationship('Like', backref='post', cascade="all, delete-orphan")
     users = association_proxy('likes', 'user')
 
 

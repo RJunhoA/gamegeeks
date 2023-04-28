@@ -52,6 +52,33 @@ class Posts(Resource):
 
 api.add_resource(Posts, '/posts')
 
+class PostsById(Resource):
+    def patch(self, id):
+        data = request.get_json()
+        post = Post.query.filter(Post.id == id).first()
+        try:
+            for attr in data:
+                setattr(post, attr, data[attr])
+        except:
+            return make_response(
+                {},
+                400
+            )
+        db.session.add(post)
+        db.session.commit()
+        return make_response(post.to_dict(), 202)
+    
+    def delete(self, id):
+        post = Post.query.filter(Post.id == id).first()
+        if not post:
+            return make_response({'error': '404 post not found'}, 404)
+        else:
+            db.session.delete(post)
+            db.session.commit()
+        return make_response({}, 204)
+    
+api.add_resource(PostsById, '/posts/<int:id>')
+
 class Likes(Resource):
     def post(self):
         data = request.get_json()
