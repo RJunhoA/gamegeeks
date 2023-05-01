@@ -45,8 +45,11 @@ class Posts(Resource):
         )
         db.session.add(new_post)
         db.session.commit()
-        return make_response(
-            {"id": new_post.id},
+        return make_response({
+            "id": new_post.id,
+            "content": new_post.content,
+            "created_at": new_post.created_at
+            },
             201
         )
 
@@ -101,8 +104,8 @@ class Likes(Resource):
         db.session.add(new_like)
         db.session.commit()
         return make_response(
-            {},
-            200
+            new_like.post.to_dict(rules=('-users.posts', 'likes')),
+            201
         )
 
 api.add_resource(Likes, '/likes')

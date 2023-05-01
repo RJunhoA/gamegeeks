@@ -2,14 +2,14 @@ import { useContext, useState } from 'react';
 import { UserContext } from './context/user';
 
 
-function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatch}) {
+function ProfilePost({content, date, id, handlePostDelete, handlePostPatch}) {
     const [formContent, setFormContent] = useState("")
     const [visiblity, setVisibility] = useState(false)
-    const {refreshUser} = useContext(UserContext)
+    const {deleteUserPost, patchUserPost} = useContext(UserContext)
 
     const handleDelete = () => {
         handlePostDelete(id)
-        refreshUser()
+        deleteUserPost(id)
         fetch(`/posts/${id}`, {
             method: "DELETE"
         })
@@ -27,8 +27,11 @@ function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatc
             body: JSON.stringify(contentObj)
         })
             .then(r => r.json())
-            .then(handlePostPatch)
-            .then(refreshUser)
+            .then(data => {
+                handlePostPatch(data)
+                patchUserPost(data)
+            })
+        e.target.reset()
 
     }
 
@@ -43,15 +46,15 @@ function ProfilePost({content, date, likes, id, handlePostDelete, handlePostPatc
             <button onClick={toggleVisbility}>Edit</button>
             {visiblity ? 
                 <form onSubmit={handleSubmit}>
-                <label>Edit Post!</label>
-                <textarea
-                    rows='4'
-                    type='text'
-                    id='content'
-                    name='content'
-                    onChange={(e) => setFormContent(e.target.value)}
-                />
-                <button>Submit</button>
+                    <label>Edit Post!</label>
+                    <textarea
+                        rows='4'
+                        type='text'
+                        id='content'
+                        name='content'
+                        onChange={(e) => setFormContent(e.target.value)}
+                    />
+                    <button>Submit</button>
                 </form>
                 :
                 ""

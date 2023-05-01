@@ -8,6 +8,10 @@ function FeedCard({id, content, owner, image, likes, refreshPosts}) {
     const [likeId, setLikeId] = useState(0)
     const {user, refreshUser} = useContext(UserContext);
 
+    console.log(owner)
+    console.log(image)
+    console.log(likes)
+
     useEffect(() => {
         fetch(`posts/${id}`)
             .then(r => r.json())
@@ -20,7 +24,7 @@ function FeedCard({id, content, owner, image, likes, refreshPosts}) {
                     setLikeId(userLike?.id)
                 }
             })
-    }, [id, user.id, liked])
+    }, [id, user.id])
 
     const handleLike = () => {
         setLiked(true);

@@ -7,7 +7,7 @@ import ProfilePost from './ProfilePost';
 
 function Profile({addPostState, handlePostDelete, handlePostPatch}) {
     const [content, setContent] = useState("");
-    const {user, refreshUser} = useContext(UserContext);
+    const {user, addUserPost} = useContext(UserContext);
 
     const post = user.posts.map((p) => {
         return (
@@ -16,7 +16,7 @@ function Profile({addPostState, handlePostDelete, handlePostPatch}) {
                 id={p.id}
                 content={p.content}
                 date={p.created_at}
-                likes={p.likes}
+                likes={p.likes || []}
                 handlePostDelete={handlePostDelete}
                 handlePostPatch={handlePostPatch}
             />
@@ -35,7 +35,7 @@ function Profile({addPostState, handlePostDelete, handlePostPatch}) {
         })
             .then(r => r.json())
             .then(data => {
-                const post_id = data.id;
+                const post_id = data.id
                 fetch("/likes", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
@@ -44,9 +44,12 @@ function Profile({addPostState, handlePostDelete, handlePostPatch}) {
                         post_id: post_id 
                     })
                 })
+                .then(r => r.json())
+                .then(data => {
+                    addPostState(data)
+                    addUserPost(data)
+                })
             })
-            .then(addPostState)
-            .then(refreshUser)
         e.target.reset()
     }
 

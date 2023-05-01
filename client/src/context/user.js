@@ -13,6 +13,32 @@ function UserProvider({children}) {
         });
     }, []);
 
+    const addUserPost = (postObj) => {
+        const userCopy = {...user}
+        userCopy.posts.push(postObj)
+        setUser(userCopy)
+    }
+
+    const deleteUserPost = (id) => {
+        const userCopy = {...user}
+        userCopy.posts = userCopy.posts.filter(post => {
+            return post.id !== id
+        })
+        setUser(userCopy)
+    }
+
+    const patchUserPost = updatedPost => {
+        const userCopy = {...user}
+        userCopy.posts = userCopy.posts.map(post => {
+            if (post.id === updatedPost.id) {
+                return {...updatedPost}
+            } else {
+                return post
+            }
+        })
+        setUser(userCopy)
+    }
+
     const refreshUser = () => {
         fetch("/check_session").then(r => {
             if (r.ok) {
@@ -22,7 +48,7 @@ function UserProvider({children}) {
     }
 
     return(
-        <UserContext.Provider value={{user, setUser, refreshUser}}>
+        <UserContext.Provider value={{user, setUser, deleteUserPost, addUserPost, patchUserPost, refreshUser}}>
             {children}
         </UserContext.Provider>
     )

@@ -39,7 +39,7 @@ function App() {
     }
 
     const addPostState = (newPostObj) => {
-        setPosts([...posts, newPostObj])
+        setPosts((prevPosts) => [newPostObj, ...prevPosts])
     }
 
     const handlePostDelete = (id) => {
