@@ -1,7 +1,7 @@
 import FeedCard from "./FeedCard"
 
 
-function FeedContainer({posts}) {
+function FeedContainer({posts, refreshPosts}) {
     const post = posts.map(p => {
         return(
             <FeedCard
@@ -10,7 +10,8 @@ function FeedContainer({posts}) {
                 content={p?.content}
                 owner={p?.users[0].username}
                 image={p?.users[0].image}
-                likes={p?.likes} 
+                likes={p?.likes}
+                refreshPosts={refreshPosts}
                 
             />
         )

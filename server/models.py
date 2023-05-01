@@ -58,7 +58,7 @@ class Post(db.Model, SerializerMixin):
 class Like(db.Model, SerializerMixin):
     __tablename__ = 'likes'
 
-    serialize_rules = ('-updated_at', '-user.id', '-post.id')
+    serialize_rules = ('-updated_at', '-created_at', '-user', '-post')
 
     id = db.Column(db.Integer, primary_key = True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())

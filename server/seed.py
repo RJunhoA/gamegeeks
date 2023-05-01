@@ -41,6 +41,6 @@ with app.app_context():
     l11 = Like(user_id=u1.id, post_id=p7.id)
     l12 = Like(user_id=u1.id, post_id=p5.id)
 
-    db.session.add_all([l1, l2, l3, l4, l5, l6, l7, l8, l9])
+    db.session.add_all([l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12])
     db.session.commit()
 

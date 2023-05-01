@@ -32,7 +32,7 @@ api.add_resource(UserById, '/users/<int:id>')
 
 class Posts(Resource):
     def get(self):
-        posts = [p.to_dict() for p in Post.query.all()]
+        posts = [p.to_dict(rules=('-users.posts', 'likes')) for p in Post.query.all()]
         return make_response(
             posts,
             200
@@ -53,6 +53,18 @@ class Posts(Resource):
 api.add_resource(Posts, '/posts')
 
 class PostsById(Resource):
+    def get(self, id):
+        post = Post.query.filter(Post.id == id).first()
+        if post:
+            return make_response(
+                post.to_dict(rules=('-users', 'likes')),
+                200
+            )
+        return make_response(
+            {'error': 'could not find post'},
+            400
+        )
+    
     def patch(self, id):
         data = request.get_json()
         post = Post.query.filter(Post.id == id).first()
@@ -94,6 +106,18 @@ class Likes(Resource):
         )
 
 api.add_resource(Likes, '/likes')
+
+class LikesById(Resource):
+    def delete(self, id):
+        like = Like.query.filter(Like.id == id).first()
+        if not like:
+            return make_response({'error': '404 like not found'}, 404)
+        else:
+            db.session.delete(like)
+            db.session.commit()
+        return make_response({}, 204)
+
+api.add_resource(LikesById, '/likes/<int:id>')
 
 class Signup(Resource):
     def post(self):
