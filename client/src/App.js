@@ -28,12 +28,6 @@ function App() {
             .then(setPosts)
     }, [])
 
-    const refreshPosts = () => {
-        fetch('/posts')
-            .then(r => r.json())
-            .then(setPosts)
-    }
-
     const addGamerState = (newGamerObj) => {
         setGamers([newGamerObj, ...gamers])
     }
@@ -65,7 +59,7 @@ function App() {
                 <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
                 <Route path='/profile' element={user ? <Profile posts={posts} addPostState={addPostState} handlePostDelete={handlePostDelete} handlePostPatch={handlePostPatch} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
-                <Route path='/feed' element={<FeedContainer posts={posts} refreshPosts={refreshPosts} />} />
+                <Route path='/feed' element={<FeedContainer posts={posts} handlePostPatch={handlePostPatch} />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/account' element={user ? <MyAccount/> : <Navigate to='/login' />} />
                 <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />

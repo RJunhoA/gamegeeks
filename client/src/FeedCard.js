@@ -3,14 +3,10 @@ import { useContext } from 'react';
 import { UserContext } from './context/user';
 
 
-function FeedCard({id, content, owner, image, likes, refreshPosts}) {
+function FeedCard({id, content, owner, image, likes, handlePostPatch}) {
     const [liked, setLiked] = useState(false);
     const [likeId, setLikeId] = useState(0)
-    const {user, refreshUser} = useContext(UserContext);
-
-    console.log(owner)
-    console.log(image)
-    console.log(likes)
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         fetch(`posts/${id}`)
@@ -36,25 +32,33 @@ function FeedCard({id, content, owner, image, likes, refreshPosts}) {
                 post_id: id
             })
         })
-        .then(refreshPosts)
-        .then(refreshUser)
+        .then(r => r.json())
+        .then(data => {
+            handlePostPatch(data)
+        })
+        // .then(refreshPosts)
+        // .then(refreshUser)
     }
 
     const handleUnlike = () => {
         setLiked(false);
         fetch(`/likes/${likeId}`, {
-            method: "DELETE",
+            method: "DELETE"
         })
-        .then(r => {
-            if (!r.ok) {
-                throw new Error("Failed to unlike post")
-            }
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
         })
-        .catch(error => {
-            console.error(error)
-        })
-        .then(refreshPosts)
-        .then(refreshUser)
+        // .then(r => {
+        //     if (!r.ok) {
+        //         throw new Error("Failed to unlike post")
+        //     }
+        // })
+        // .catch(error => {
+        //     console.error(error)
+        // })
+        // .then(refreshPosts)
+        // .then(refreshUser)
     }
 
     return(

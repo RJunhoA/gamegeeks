@@ -118,7 +118,10 @@ class LikesById(Resource):
         else:
             db.session.delete(like)
             db.session.commit()
-        return make_response({}, 204)
+        return make_response(
+            like.to_dict(), 
+            200
+        )
 
 api.add_resource(LikesById, '/likes/<int:id>')
 
