@@ -45,20 +45,24 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
     }
 
     const handleUnlike = () => {
-        setLiked(false);
-        handlePostLikesDelete(likeId)
-        deleteUserPost(id)
-        fetch(`/likes/${likeId}`, {
-            method: "DELETE"
-        })
-        .then(r => {
-            if (!r.ok) {
-                throw new Error("Failed to unlike post")
-            }
-        })
-        .catch(error => {
-            console.error(error)
-        })
+        if (user?.id === likes[0].user_id) {
+            alert("Cannot unlike your own post!")
+        } else {
+            setLiked(false);
+            handlePostLikesDelete(likeId)
+            deleteUserPost(id)
+            fetch(`/likes/${likeId}`, {
+                method: "DELETE"
+            })
+            .then(r => {
+                if (!r.ok) {
+                    throw new Error("Failed to unlike post")
+                }
+            })
+            .catch(error => {
+                console.error(error)
+            })
+        }
     }
 
     return(
