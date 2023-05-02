@@ -45,11 +45,19 @@ function App() {
     const handlePostPatch = updatedPost => {
         setPosts(posts.map(post => {
             if (post.id === updatedPost.id) {
-                return {...updatedPost};
+                return {...updatedPost}
             } else {
                 return post
             }
         }))
+    }
+
+    const handlePostLikesDelete = (likeId) => {
+        const postsCopy = [...posts]
+        postsCopy.forEach(post => {
+            post.likes = post.likes.filter(like => like.id !== likeId)
+        })
+        setPosts(postsCopy)
     }
 
     return(
@@ -59,7 +67,7 @@ function App() {
                 <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
                 <Route path='/profile' element={user ? <Profile posts={posts} addPostState={addPostState} handlePostDelete={handlePostDelete} handlePostPatch={handlePostPatch} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
-                <Route path='/feed' element={<FeedContainer posts={posts} handlePostPatch={handlePostPatch} />} />
+                <Route path='/feed' element={<FeedContainer posts={posts} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete} />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/account' element={user ? <MyAccount/> : <Navigate to='/login' />} />
                 <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />

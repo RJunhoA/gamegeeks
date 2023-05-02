@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from './context/user';
 
 
-function FeedCard({id, content, owner, image, likes, handlePostPatch}) {
+function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePostLikesDelete}) {
     const [liked, setLiked] = useState(false);
     const [likeId, setLikeId] = useState(0)
     const {user} = useContext(UserContext);
@@ -46,21 +46,18 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch}) {
 
     const handleUnlike = () => {
         setLiked(false);
+        handlePostLikesDelete(likeId)
         fetch(`/likes/${likeId}`, {
             method: "DELETE"
         })
-        .then(r => r.json())
-        .then(data => {
-            console.log(data)
+        .then(r => {
+            if (!r.ok) {
+                throw new Error("Failed to unlike post")
+            }
         })
-        // .then(r => {
-        //     if (!r.ok) {
-        //         throw new Error("Failed to unlike post")
-        //     }
-        // })
-        // .catch(error => {
-        //     console.error(error)
-        // })
+        .catch(error => {
+            console.error(error)
+        })
         // .then(refreshPosts)
         // .then(refreshUser)
     }
