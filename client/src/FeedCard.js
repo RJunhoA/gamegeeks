@@ -34,9 +34,13 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch}) {
         })
         .then(r => r.json())
         .then(data => {
+            const likes = data.likes
             handlePostPatch(data)
+            const userLike = likes.find(like => like.user_id === user?.id);
+                if (userLike) {
+                    setLikeId(userLike?.id)
+                }
         })
-        // .then(refreshPosts)
         // .then(refreshUser)
     }
 
