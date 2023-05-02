@@ -44,7 +44,7 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
-    serialize_rules = ('-likes', 'users')
+    serialize_rules = ('users',)
 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String)

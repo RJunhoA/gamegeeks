@@ -32,7 +32,7 @@ api.add_resource(UserById, '/users/<int:id>')
 
 class Posts(Resource):
     def get(self):
-        posts = [p.to_dict(rules=('-users.posts', 'likes')) for p in Post.query.all()]
+        posts = [p.to_dict(rules=('-users.posts', )) for p in Post.query.all()]
         return make_response(
             posts,
             200
@@ -60,7 +60,7 @@ class PostsById(Resource):
         post = Post.query.filter(Post.id == id).first()
         if post:
             return make_response(
-                post.to_dict(rules=('-users', 'likes')),
+                post.to_dict(rules=('-users', )),
                 200
             )
         return make_response(

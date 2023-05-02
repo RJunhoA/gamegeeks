@@ -6,7 +6,7 @@ import { UserContext } from './context/user';
 function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePostLikesDelete}) {
     const [liked, setLiked] = useState(false);
     const [likeId, setLikeId] = useState(0)
-    const {user} = useContext(UserContext);
+    const {user, addUserPost, deleteUserPost} = useContext(UserContext);
 
     useEffect(() => {
         fetch(`posts/${id}`)
@@ -36,17 +36,18 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
         .then(data => {
             const likes = data.likes
             handlePostPatch(data)
+            addUserPost(data)
             const userLike = likes.find(like => like.user_id === user?.id);
                 if (userLike) {
                     setLikeId(userLike?.id)
                 }
         })
-        // .then(refreshUser)
     }
 
     const handleUnlike = () => {
         setLiked(false);
         handlePostLikesDelete(likeId)
+        deleteUserPost(id)
         fetch(`/likes/${likeId}`, {
             method: "DELETE"
         })
@@ -58,8 +59,6 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
         .catch(error => {
             console.error(error)
         })
-        // .then(refreshPosts)
-        // .then(refreshUser)
     }
 
     return(

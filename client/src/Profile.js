@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from './context/user';
 import ProfilePost from './ProfilePost';
+import ProfileLike from './ProfileLike';
 
 
 
@@ -10,17 +11,27 @@ function Profile({addPostState, handlePostDelete, handlePostPatch}) {
     const {user, addUserPost} = useContext(UserContext);
 
     const post = user.posts.map((p) => {
-        return (
-            <ProfilePost 
-                key={p.id}
-                id={p.id}
-                content={p.content}
-                date={p.created_at}
-                likes={p.likes || []}
-                handlePostDelete={handlePostDelete}
-                handlePostPatch={handlePostPatch}
-            />
-        )
+        if (p.likes[0].user_id === user.id) {
+            return (
+                <ProfilePost 
+                    key={p.id}
+                    id={p.id}
+                    content={p.content}
+                    date={p.created_at}
+                    handlePostDelete={handlePostDelete}
+                    handlePostPatch={handlePostPatch}
+                />
+            )
+        } else {
+            return (
+                <ProfileLike 
+                    key={p.id}
+                    id={p.id}
+                    content={p.content}
+                    date={p.created_at}
+                />
+            )
+        }
     });
 
     const handleSubmit = (e) => {

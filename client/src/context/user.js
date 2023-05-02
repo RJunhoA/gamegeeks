@@ -39,16 +39,10 @@ function UserProvider({children}) {
         setUser(userCopy)
     }
 
-    const refreshUser = () => {
-        fetch("/check_session").then(r => {
-            if (r.ok) {
-                r.json().then((user) => setUser(user));
-            }
-        });
-    }
+
 
     return(
-        <UserContext.Provider value={{user, setUser, deleteUserPost, addUserPost, patchUserPost, refreshUser}}>
+        <UserContext.Provider value={{user, setUser, deleteUserPost, addUserPost, patchUserPost}}>
             {children}
         </UserContext.Provider>
     )
