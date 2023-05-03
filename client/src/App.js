@@ -32,6 +32,19 @@ function App() {
         setGamers([newGamerObj, ...gamers])
     }
 
+    const updateGamer = (updatedGamer) => {
+        setGamers(gamers.map(gamer => {
+            if (gamer.id === updatedGamer.id) {
+                return {
+                    ...gamer,
+                    ...updatedGamer
+                }
+            } else {
+                return gamer
+            }
+        }))
+    }
+
     const addPostState = (newPostObj) => {
         setPosts((prevPosts) => [newPostObj, ...prevPosts])
     }
@@ -60,6 +73,20 @@ function App() {
         setPosts(postsCopy)
     }
 
+    const updatePostUser = (updatedUser) => {
+        const postsCopy = [...posts]
+        postsCopy.forEach(post => {
+            post.users = post.users.map(user => {
+                if (user.id === updatedUser.id) {
+                    return updatedUser
+                } else {
+                    return user
+                }
+            })
+        })
+        setPosts(postsCopy)
+    }
+
     return(
         <div>
             <Navbar />
@@ -69,7 +96,7 @@ function App() {
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={user ? <FeedContainer posts={posts} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete} /> : <Navigate to='/login' />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/account' element={user ? <MyAccount/> : <Navigate to='/login' />} />
+                <Route path='/account' element={user ? <MyAccount updatePostUser={updatePostUser} updateGamer={updateGamer} /> : <Navigate to='/login' />} />
                 <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />
             </Routes>
         </div>

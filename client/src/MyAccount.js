@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from './context/user';
 
-function MyAccount() {
+function MyAccount({updatePostUser, updateGamer}) {
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user?.username);
   const [password, setPassword] = useState('');
@@ -40,9 +40,11 @@ function MyAccount() {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((r) => r.json())
       .then((updatedUser) => {
         setUser(updatedUser);
+        updatePostUser(updatedUser)
+        updateGamer(updatedUser)
       });
   };
 
