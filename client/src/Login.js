@@ -9,21 +9,25 @@ function Login() {
     const [password, setPassword] =useState("")
 
     function handleSubmit(e) {
-      e.preventDefault();
-      fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        }),
-      })
-        .then((r) => r.json())
-        .then((user) => setUser(user));
+        e.preventDefault();
+        fetch("/login", {
+            method: "POST",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+        })
+            .then(r => {
+                if (r.ok) {
+                    r.json()
+                    .then(user => setUser(user))
+                } else {
+                    alert("Must enter valid username and password")
+                }
+            })
     }
-  
+
     return (
       <form onSubmit={handleSubmit}>
         <input

@@ -10,9 +10,9 @@ with app.app_context():
     Like.query.delete()
 
 
-    u1 = User(username='TestUser', _password='1234', image='https://www.streamscheme.com/wp-content/uploads/2020/04/Lul.png.webp')
-    u2 = User(username='SINGLEMOM69', _password='1234', image='https://pbs.twimg.com/media/EDdaVOjVAAAZMLJ?format=jpg&name=small')
-    u3 = User(username='HaramBAE', _password='1234', image='https://cdn.frankerfacez.com/emoticon/355871/4')
+    u1 = User(username='user1', _password='1234', image='https://www.streamscheme.com/wp-content/uploads/2020/04/Lul.png.webp')
+    u2 = User(username='user2', _password='1234', image='https://pbs.twimg.com/media/EDdaVOjVAAAZMLJ?format=jpg&name=small')
+    u3 = User(username='user3', _password='1234', image='https://cdn.frankerfacez.com/emoticon/355871/4')
 
     p1 = Post(content='Hi, there! This is 1 post!')
     p2 = Post(content='Hi, there! This is 2 post!')
@@ -25,7 +25,7 @@ with app.app_context():
     p9 = Post(content='Hi, there! This is 9 post!')
 
     db.session.add_all([u1, u2, u3])
-    db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8, p9])
+    db.session.add_all([p1, p7, p3, p2, p4, p8, p5, p6, p9])
     db.session.commit()
 
     l1 = Like(user_id=u1.id, post_id=p1.id)
