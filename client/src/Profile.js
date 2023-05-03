@@ -71,6 +71,7 @@ function Profile({addPostState, handlePostDelete, handlePostPatch, handlePostLik
         <div>
             <img src={user.image} alt='profile pic' />
             <h1>{user.username}</h1>
+            <p>{user.about}</p>
             <form onSubmit={handleSubmit}>
                 <label>Make a Post!</label>
                 <textarea
