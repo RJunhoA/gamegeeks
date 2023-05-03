@@ -8,22 +8,6 @@ function MyAccount({updatePostUser, updateGamer}) {
   const [image, setImage] = useState(user?.image);
   const [about, setAbout] = useState(user?.about);
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleImageChange = (e) => {
-    setImage(e.target.value);
-  };
-
-  const handleAboutChange = (e) => {
-    setAbout(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -55,22 +39,22 @@ function MyAccount({updatePostUser, updateGamer}) {
       <form onSubmit={handleSubmit}>
         <label>
           Username:
-          <input type="text" value={username} onChange={handleUsernameChange} />
+          <input type="text" value={username} onChange={(e) => {setUsername(e.target.value)}} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={handlePasswordChange} />
+          <input type="password" value={password} onChange={(e) => {setPassword(e.target.value)}} />
         </label>
         <br />
         <label>
           Image:
-          <input type="text" value={image} onChange={handleImageChange} />
+          <input type="text" value={image} onChange={(e) => {setImage(e.target.value)}} />
         </label>
         <br />
         <label>
           About:
-          <textarea value={about} onChange={handleAboutChange} />
+          <textarea value={about} onChange={(e) => {setAbout(e.target.value)}} />
         </label>
         <br />
         <button type="submit">Save Changes</button>
