@@ -28,6 +28,30 @@ class UserById(Resource):
                 200
             )
         
+    def patch(self, id):
+        user = User.query.filter(User.id == id).first()
+        if not user:
+            return make_response(
+                {'error': 'User not found'},
+                404
+            )
+        else:
+            data = request.get_json()
+            if 'username' in data:
+                user.username = data['username']
+            if 'password' in data:
+                user.password = data['password']
+            if 'image' in data:
+                user.image = data['image']
+            if 'about' in data:
+                user.about = data['about']
+            db.session.add(user)
+            db.session.commit()
+            return make_response(
+                user.to_dict(),
+                200
+            )
+        
 api.add_resource(UserById, '/users/<int:id>')
 
 class Posts(Resource):
