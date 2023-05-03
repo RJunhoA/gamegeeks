@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from './context/user';
 
 
-function ProfilePost({content, date, id, handlePostDelete, handlePostPatch}) {
+function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatch}) {
     const [formContent, setFormContent] = useState("")
     const [visiblity, setVisibility] = useState(false)
     const {deleteUserPost, patchUserPost} = useContext(UserContext)
@@ -42,7 +42,7 @@ function ProfilePost({content, date, id, handlePostDelete, handlePostPatch}) {
     return(
         <div id={id}>
             <p>{content}</p>
-            <h6>{date}</h6>
+            <p>Likes: {likes.length}</p>
             <button onClick={toggleVisbility}>Edit</button>
             {visiblity ? 
                 <form onSubmit={handleSubmit}>
@@ -60,6 +60,7 @@ function ProfilePost({content, date, id, handlePostDelete, handlePostPatch}) {
                 ""
             }
             <button onClick={handleDelete}>Delete</button>
+            <h6>{date}</h6>
         </div>
     )
 

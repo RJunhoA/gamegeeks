@@ -65,7 +65,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path='/' element={user ? <h2>Welcome back {user?.username}!</h2> : <h2>Welcome to Game Geeks!</h2>} />
-                <Route path='/profile' element={user ? <Profile addPostState={addPostState} handlePostDelete={handlePostDelete} handlePostPatch={handlePostPatch} /> : <Navigate to='/login' />} />
+                <Route path='/profile' element={user ? <Profile addPostState={addPostState} handlePostDelete={handlePostDelete} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={<GamersContainer gamers={gamers} />} />
                 <Route path='/feed' element={user ? <FeedContainer posts={posts} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete} /> : <Navigate to='/login' />} />
                 <Route path='/login' element={<Login />} />
