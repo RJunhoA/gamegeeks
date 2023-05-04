@@ -36,13 +36,13 @@ function Navbar() {
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/login" >
-                    Login
+                <NavLink to="/account" >
+                    My Account
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/account" >
-                    My Account
+                <NavLink to="/login" >
+                    Login
                 </NavLink>
             </li>
             <li>
@@ -51,7 +51,7 @@ function Navbar() {
                 </NavLink>
             </li>
             <li>
-                <button onClick={handleLogout}>Logout</button>
+                {user ? <button onClick={handleLogout}>Logout</button> : null}
             </li>
       </ul>
     </nav>

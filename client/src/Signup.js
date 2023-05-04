@@ -32,9 +32,6 @@ function Signup({addGamerState}) {
     return(
         <div>
             <div>
-                Welcome to GameGeeks!
-            </div>
-            <div>
                 <div>
                     <h2>Create a New Account</h2>
                 </div>

@@ -5,21 +5,22 @@ const UserContext = React.createContext();
 function UserProvider({children}) {
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        fetch("/check_session").then(r => {
-            if (r.ok) {
-                r.json().then((user) => setUser(user));
-            }
-        });
-    }, []);
+    // useEffect(() => {
+    //     fetch("/check_session").then(r => {
+    //         if (r.ok) {
+    //             r.json().then((user) => setUser(user));
+    //         }
+    //     });
+    // }, []);
 
-    const sessionCheck = useEffect(() => {
-        fetch("/check_session").then(r => {
-            if (r.ok) {
-                r.json().then((user) => setUser(user));
-            }
-        });
-    }, []);
+    const sessionCheck = async () => {
+        const r = await fetch("/check_session");
+        if (r.ok) {
+            return r.json().then((user) => setUser(user));
+        } else {
+            return null;
+        }
+    };
 
     const addUserPost = (postObj) => {
         const userCopy = {...user}

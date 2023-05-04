@@ -8,6 +8,8 @@ function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] =useState("")
 
+
+
     function handleSubmit(e) {
         e.preventDefault();
         fetch("/login", {
@@ -21,9 +23,10 @@ function Login() {
             .then(r => {
                 if (r.ok) {
                     r.json()
-                    .then(user => setUser(user))
-                    .then(sessionCheck)
-
+                    .then(user => {
+                      setUser(user);
+                      sessionCheck();
+                    })
                 } else {
                     alert("Must enter valid username and password")
                 }
@@ -32,13 +35,14 @@ function Login() {
 
     return (
       <form onSubmit={handleSubmit}>
+        
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type="text"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
