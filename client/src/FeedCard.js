@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from './context/user';
 
 
-function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePostLikesDelete}) {
+function FeedCard({id, content, owner, image, likes, users, handlePostPatch, handlePostLikesDelete}) {
     const [liked, setLiked] = useState(false);
     const [likeId, setLikeId] = useState(0)
     const {user, addUserPost, deleteUserPost} = useContext(UserContext);
@@ -49,7 +49,7 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
             alert("Cannot unlike your own post!")
         } else {
             setLiked(false);
-            handlePostLikesDelete(likeId)
+            handlePostLikesDelete(likeId, id)
             deleteUserPost(id)
             fetch(`/likes/${likeId}`, {
                 method: "DELETE"
@@ -64,6 +64,7 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
             })
         }
     }
+    console.log(id)
 
     return(
         <div id={id}>
@@ -71,6 +72,7 @@ function FeedCard({id, content, owner, image, likes, handlePostPatch, handlePost
             <h2>{owner}</h2>
             <p>{content}</p>
             <p>Likes: {likes?.length}</p>
+            <p>{users} Liked this post</p>
             {liked ? (
                 <button onClick={handleUnlike}>❤️</button>
             ) : (
