@@ -64,7 +64,6 @@ function FeedCard({id, content, owner, image, likes, users, handlePostPatch, han
             })
         }
     }
-    console.log(id)
 
     return(
         <div id={id}>
