@@ -100,9 +100,9 @@ function App() {
                 <Route path='/profile' element={user ? <Profile addPostState={addPostState} handlePostDelete={handlePostDelete} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete} /> : <Navigate to='/login' />} />
                 <Route path='/gamers' element={user ? <GamersContainer gamers={gamers} /> : <Navigate to='/login' />} />
                 <Route path='/feed' element={user ? <FeedContainer posts={posts} handlePostPatch={handlePostPatch} handlePostLikesDelete={handlePostLikesDelete}  /> : <Navigate to='/login' />} />
-                <Route path='/login' element={user ? '' : <Login />} />
+                <Route path='/login' element={<Login />} />
                 <Route path='/account' element={user ? <MyAccount updatePostUser={updatePostUser} updateGamer={updateGamer} /> : <Navigate to='/login' />} />
-                <Route path='/signup' element={user ? '' : <Signup addGamerState={addGamerState} />} />
+                <Route path='/signup' element={<Signup addGamerState={addGamerState} />} />
             </Routes>
         </div>
     )

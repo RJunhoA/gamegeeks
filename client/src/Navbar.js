@@ -41,14 +41,18 @@ function Navbar() {
                 </NavLink>
             </li>
             <li>
+                {user ? null :
                 <NavLink to="/login" >
                     Login
                 </NavLink>
+                }
             </li>
             <li>
+                {user ? null : 
                 <NavLink to="/signup" >
                     Signup
                 </NavLink>
+                }
             </li>
             <li>
                 {user ? <button onClick={handleLogout}>Logout</button> : null}
