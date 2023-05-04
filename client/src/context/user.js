@@ -13,6 +13,14 @@ function UserProvider({children}) {
         });
     }, []);
 
+    const sessionCheck = useEffect(() => {
+        fetch("/check_session").then(r => {
+            if (r.ok) {
+                r.json().then((user) => setUser(user));
+            }
+        });
+    }, []);
+
     const addUserPost = (postObj) => {
         const userCopy = {...user}
         userCopy.posts.push(postObj)
@@ -42,7 +50,7 @@ function UserProvider({children}) {
 
 
     return(
-        <UserContext.Provider value={{user, setUser, deleteUserPost, addUserPost, patchUserPost}}>
+        <UserContext.Provider value={{user, sessionCheck, setUser, deleteUserPost, addUserPost, patchUserPost}}>
             {children}
         </UserContext.Provider>
     )

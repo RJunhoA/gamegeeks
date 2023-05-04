@@ -4,7 +4,7 @@ import { UserContext } from './context/user';
 
 
 function Login() {
-    const {setUser} = useContext(UserContext)
+    const {setUser, sessionCheck} = useContext(UserContext)
     const [username, setUsername] = useState("");
     const [password, setPassword] =useState("")
 
@@ -22,6 +22,8 @@ function Login() {
                 if (r.ok) {
                     r.json()
                     .then(user => setUser(user))
+                    .then(sessionCheck)
+
                 } else {
                     alert("Must enter valid username and password")
                 }

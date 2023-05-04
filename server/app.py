@@ -201,5 +201,12 @@ class CheckSession(Resource):
         
 api.add_resource(CheckSession, '/check_session')
 
+@app.before_request
+def before_request():
+    if not request.path.startswith('/login') and not request.path.startswith('/signup'):
+        if 'user_id' not in session:
+            return {'error': 'Unauthorized request'}, 401
+
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
