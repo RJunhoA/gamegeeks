@@ -136,12 +136,12 @@ button[type="submit"]:focus {
 }
 
 .post-form textarea {
-  width: 100%;
+  width: 50%;
   margin-bottom: 0.5rem;
 }
 
 .post-list {
-  width: 100%;
+  width: 50%;
 }
 
 .post {

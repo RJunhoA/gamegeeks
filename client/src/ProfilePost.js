@@ -40,10 +40,11 @@ function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatc
     }
 
     return(
-        <div id={id} className='post'>
+        <div id={id} className='post' style={{position: "relative"}}>
+            <button style={{position: "absolute", top: 0, right: 0, marginRight: "0.5rem", marginTop: "0.5rem"}} onClick={toggleVisbility}>Edit</button>
+            <button style={{position: "absolute", top: 25, right: 0, marginRight: "0.5rem",}} onClick={handleDelete}>Delete</button>
             <p>{content}</p>
             <p>Likes: {likes.length}</p>
-            <button onClick={toggleVisbility}>Edit</button>
             {visiblity ? 
                 <form onSubmit={handleSubmit}>
                     <label>Edit Post!</label>
@@ -59,7 +60,6 @@ function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatc
                 :
                 ""
             }
-            <button onClick={handleDelete}>Delete</button>
             <h6>{date}</h6>
         </div>
     )

@@ -72,6 +72,7 @@ function Profile({addPostState, handlePostDelete, handlePostPatch, handlePostLik
             <div className="profile-header">
                 <img src={user.image} alt='profile pic' className="profile-pic" />
                 <h2>{user.username}</h2>
+                <h3>About Me</h3>
                 <p>{user.about}</p>
             </div>
             <div className="post-form">
