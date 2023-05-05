@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useContext } from 'react';
 import { UserContext } from './context/user';
+import { useNavigate } from 'react-router-dom'
 
 
 function Login() {
     const {setUser, sessionCheck} = useContext(UserContext)
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("")
     const [password, setPassword] =useState("")
+    const navigate = useNavigate()
 
 
 
@@ -20,18 +22,22 @@ function Login() {
                 password: password
             }),
         })
-            .then(r => {
-                if (r.ok) {
-                    r.json()
-                    .then(user => {
-                      setUser(user);
-                      sessionCheck();
-                    })
-                } else {
-                    alert("Must enter valid username and password")
-                }
-            })
+        .then(r => {
+            if (r.ok) {
+                return r.json().then(user => {
+                    setUser(user);
+                    sessionCheck();
+                    navigate('/feed')
+                })
+            } else {
+                alert("Must enter valid username and password")
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error)
+        })
     }
+    
 
     return (
       <form onSubmit={handleSubmit}>
