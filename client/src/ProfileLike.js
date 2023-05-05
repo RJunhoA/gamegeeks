@@ -30,7 +30,7 @@ function ProfileLike({content, date, id, likes, handlePostLikesDelete}) {
     }
 
     return(
-        <div id={id}>
+        <div id={id} className='post'>
             <p>{content}</p>
             <p>Likes: {likes.length}</p>
             <button onClick={handleUnlike}>❤️</button>

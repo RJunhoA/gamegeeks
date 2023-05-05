@@ -40,7 +40,7 @@ function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatc
     }
 
     return(
-        <div id={id}>
+        <div id={id} className='post'>
             <p>{content}</p>
             <p>Likes: {likes.length}</p>
             <button onClick={toggleVisbility}>Edit</button>

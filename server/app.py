@@ -119,6 +119,13 @@ class PostsById(Resource):
 api.add_resource(PostsById, '/posts/<int:id>')
 
 class Likes(Resource):
+    def get(self):
+        likes = [l.to_dict() for l in Like.query.all()]
+        return make_response(
+            likes,
+            200
+        )
+    
     def post(self):
         data = request.get_json()
         new_like = Like(
@@ -201,11 +208,11 @@ class CheckSession(Resource):
         
 api.add_resource(CheckSession, '/check_session')
 
-@app.before_request
-def before_request():
-    if not request.path.startswith('/login') and not request.path.startswith('/signup'):
-        if 'user_id' not in session:
-            return {'error': 'Unauthorized request'}, 401
+# @app.before_request
+# def before_request():
+#     if not request.path.startswith('/login') and not request.path.startswith('/signup'):
+#         if 'user_id' not in session:
+#             return {'error': 'Unauthorized request'}, 401
 
 
 

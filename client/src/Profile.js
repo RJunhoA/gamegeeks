@@ -68,11 +68,14 @@ function Profile({addPostState, handlePostDelete, handlePostPatch, handlePostLik
     }
 
     return(
-        <div>
-            <img src={user.image} alt='profile pic' />
-            <h1>{user.username}</h1>
-            <p>{user.about}</p>
-            <form onSubmit={handleSubmit}>
+        <div className="profile-page">
+            <div className="profile-header">
+                <img src={user.image} alt='profile pic' className="profile-pic" />
+                <h2>{user.username}</h2>
+                <p>{user.about}</p>
+            </div>
+            <div className="post-form">
+                <form onSubmit={handleSubmit}>
                 <label>Make a Post!</label>
                 <textarea
                     rows='4'
@@ -84,8 +87,9 @@ function Profile({addPostState, handlePostDelete, handlePostPatch, handlePostLik
                 <button>
                     Submit
                 </button>
-            </form>
-            <div>
+                </form>
+            </div>
+            <div className="post-list">
                 {post}
             </div>
         </div>
