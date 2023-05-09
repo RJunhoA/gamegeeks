@@ -164,3 +164,18 @@ button[type="submit"]:focus {
   font-size: 0.8rem;
   color: #aaa;
 }
+
+.container {
+  display: flex;
+  border: groove rgba(255, 0, 0, 0.485);
+  width: 50%;
+}
+
+.content {
+  width: 50%;
+  padding-left: 10px;
+}
+
+.profile-post {
+  padding-top: 10px;
+}

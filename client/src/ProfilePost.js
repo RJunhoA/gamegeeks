@@ -3,7 +3,7 @@ import { UserContext } from './context/user';
 
 
 function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatch}) {
-    const [formContent, setFormContent] = useState("")
+    const [formContent, setFormContent] = useState(content)
     const [visiblity, setVisibility] = useState(false)
     const {deleteUserPost, patchUserPost} = useContext(UserContext)
 
@@ -43,7 +43,7 @@ function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatc
         <div id={id} className='post' style={{position: "relative"}}>
             <button style={{position: "absolute", top: 0, right: 0, marginRight: "0.5rem", marginTop: "0.5rem"}} onClick={toggleVisbility}>Edit</button>
             <button style={{position: "absolute", top: 25, right: 0, marginRight: "0.5rem",}} onClick={handleDelete}>Delete</button>
-            <p>{content}</p>
+            <p className='profile-post'>{content}</p>
             <p>Likes: {likes.length}</p>
             {visiblity ? 
                 <form onSubmit={handleSubmit}>
@@ -53,6 +53,7 @@ function ProfilePost({content, date, id, likes, handlePostDelete, handlePostPatc
                         type='text'
                         id='content'
                         name='content'
+                        value={formContent}
                         onChange={(e) => setFormContent(e.target.value)}
                     />
                     <button>Submit</button>

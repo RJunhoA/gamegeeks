@@ -7,7 +7,8 @@ function FeedContainer({posts, handlePostPatch, handlePostLikesDelete}) {
     }
 
     return(
-        <div>
+        <div className="profile-header">
+            <h2>Feed</h2>
             {posts?.map(p => {
             const users = p?.users?.map(u => {
                 return `${u.username}, `

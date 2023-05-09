@@ -12,7 +12,7 @@ function FeedCard({id, content, owner, image, likes, users, handlePostPatch, han
         fetch(`posts/${id}`)
             .then(r => r.json())
             .then(data => {
-                const likes = data.likes
+                const likes = data.likes || []
                 const hasLiked = likes.some(like => like.user_id === user?.id)
                 setLiked(hasLiked)
                 const userLike = likes.find(like => like.user_id === user?.id);
@@ -20,7 +20,7 @@ function FeedCard({id, content, owner, image, likes, users, handlePostPatch, han
                     setLikeId(userLike?.id)
                 }
             })
-    }, [id, user.id])
+    }, [id, user?.id])
 
     const handleLike = () => {
         setLiked(true);
@@ -66,17 +66,19 @@ function FeedCard({id, content, owner, image, likes, users, handlePostPatch, han
     }
 
     return(
-        <div id={id}>
-            <img src={image} alt="profile pic" />
-            <h2>{owner}</h2>
-            <p>{content}</p>
-            <p>Likes: {likes?.length}</p>
-            <p>{users} Liked this post</p>
-            {liked ? (
-                <button onClick={handleUnlike}>❤️</button>
-            ) : (
-                <button onClick={handleLike}>🤍</button>
-            )}
+        <div id={id} className="container">
+            <img src={image} alt="profile pic" className="profile-pic" />
+            <div className="content">
+                <h2>{owner}</h2>
+                <p>{content}</p>
+                <p>Likes: {likes?.length}</p>
+                <p>{users} Liked this post</p>
+                {liked ? (
+                    <button onClick={handleUnlike}>❤️</button>
+                ) : (
+                    <button onClick={handleLike}>🤍</button>
+                )}
+            </div>
         </div>
     )
 }

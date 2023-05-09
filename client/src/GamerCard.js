@@ -4,7 +4,7 @@ function GamerCard({id, username, image, created}) {
 
     return(
         <div id={id}>
-            <img src={image} alt="profile pic" />
+            <img src={image} alt="profile pic"  className="profile-pic"  />
             <h2>{username}</h2>
             <p>{created}</p>
         </div>

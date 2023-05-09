@@ -35,7 +35,7 @@ function MyAccount({updatePostUser, updateGamer}) {
   return (
     <div>
       <h1>Account Page</h1>
-      <img src={image} alt="profile pic" />
+      <img src={image} alt="profile pic" className="profile-pic" />
       <form onSubmit={handleSubmit}>
         <label>
           Username:
